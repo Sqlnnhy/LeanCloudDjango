@@ -1,14 +1,13 @@
 # -*- coding:utf-8 -*-
 import os
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "LeanCloudDjango.settings")
+
 import leancloud
 from gevent.pywsgi import WSGIServer
 from cloud import engine
 from gevent import monkey
 monkey.patch_all()
-
-
-# 设置 Django 项目配置文件
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "LeanCloudDjango.settings")
 
 APP_ID = os.environ['LEANCLOUD_APP_ID']
 APP_KEY = os.environ['LEANCLOUD_APP_KEY']
