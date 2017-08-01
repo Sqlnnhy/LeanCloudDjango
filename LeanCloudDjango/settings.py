@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 """
 Django settings for LeanCloudDjango project.
 
@@ -102,3 +103,54 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },  # 针对 DEBUG = True 的情况
+    },
+    'formatters': {
+        'standard': {
+            'format': '[%(asctime)s] [%(levelname)s] %(filename)s'
+                      ' %(module)s %(funcName)s %(lineno)d: %(message)s'
+        },  # 对日志信息进行格式化，每个字段对应了日志格式中的一个字段，更多字段参考官网文档，我认为这些字段比较合适，
+        # 输出类似于下面的内容:
+        # [2017-03-04 13:59:32,345] [INFO] views.py views index 95: some message
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'standard'
+        },
+        'file_handler': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': 'byod.admin.log',
+            'formatter': 'standard'
+        },  # 用于文件输出
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+    },
+    'loggers': {
+        'myapp': {
+            'handlers': ['file_handler', 'console'],
+            'level': 'DEBUG',
+            'propagate': True  # 是否继承父类的log信息
+        },  # handlers 来自于上面的 handlers 定义的内容
+        'myapp.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    }
+}
+# --logging--

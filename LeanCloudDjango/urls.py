@@ -18,5 +18,7 @@ from LCD import views as lcd_view
 
 urlpatterns = [
     # url(r'^admin/', include(admin.site.urls)),
+    url(r'^', lcd_view.show),
     url(r'^home/', lcd_view.home),
+
 ]
