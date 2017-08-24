@@ -39,8 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'LCD',
     'django.contrib.staticfiles',
+    'LCD',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -73,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'LeanCloudDjango.wsgi.application'
+# WSGI_APPLICATION = 'LeanCloudDjango.wsgi.application'
 
 
 # Database
