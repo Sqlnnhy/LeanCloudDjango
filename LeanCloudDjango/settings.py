@@ -32,8 +32,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = (
-    'grappelli.dashboard',
-    'grappelli',
+    # 'grappelli.dashboard',
+    # 'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -117,7 +117,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 #     os.path.join(BASE_DIR, 'static/'),
 # )
 
-ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
+# ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 
 # logging
 LOGGING = {
