@@ -20,8 +20,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', lcd_view.show),
-    url(r'^home/', lcd_view.home),
+    url(r'index^', lcd_view.show),
+    url(r'^home', lcd_view.home),
     # url(r'^grappelli/', include('grappelli.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
