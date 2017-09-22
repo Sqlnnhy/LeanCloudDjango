@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
 from leancloud import Query, LeanCloudError
 from wechatpy import create_reply, parse_message
 from wechatpy.events import SubscribeEvent, UnsubscribeEvent, MassSendJobFinishEvent
@@ -37,6 +38,7 @@ def show(request):
     return render(request, 'todos.html', {'todos': todo})
 
 
+@csrf_exempt
 def index(request):
     if request.method == 'GET':
         # 检验合法性
