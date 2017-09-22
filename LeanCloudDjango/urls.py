@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^list', lcd_view.show),
     url(r'^home', lcd_view.home),
+    url(r'^index', lcd_view.index),
     # url(r'^grappelli/', include('grappelli.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
