@@ -95,5 +95,6 @@ def index(request):
             # logger.info('群发消息事件')
             reply_text = ''
 
+
     reply = create_reply(reply_text, message=message)
     return HttpResponse(reply, content_type="application/xml")
