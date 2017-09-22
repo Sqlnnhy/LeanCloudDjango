@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from leancloud import Query, LeanCloudError
-from wechatpy import create_reply
+from wechatpy import create_reply, parse_message
 from wechatpy.events import SubscribeEvent, UnsubscribeEvent, MassSendJobFinishEvent
 from wechatpy.exceptions import InvalidSignatureException
 from wechatpy.messages import TextMessage, VoiceMessage, ImageMessage, VideoMessage, LinkMessage, \
@@ -54,7 +54,7 @@ def index(request):
         return response
 
     # POST
-    message = 'message'
+    message = parse_message(request.body)
 
     # logger.info(type(message))
 
