@@ -71,7 +71,7 @@ def index(request):
 
     elif isinstance(message, VoiceMessage):
 
-        reply_text = '语音信息我听不懂/:P-(/:P-(/:P-('
+        reply_text = VoiceMessage.recognition
     elif isinstance(message, ImageMessage):
         reply_text = '图片信息我也看不懂/:P-(/:P-(/:P-('
     elif isinstance(message, VideoMessage):
