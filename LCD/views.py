@@ -75,7 +75,7 @@ def index(request):
 
         # rgx = re.compile("<!\[CDATA\[(.*?)\]\]>")
         # m = rgx.search(VoiceMessage.format)
-        reply_text = VoiceMessage.format
+        reply_text = str(VoiceMessage.recognition)
     elif isinstance(message, ImageMessage):
         reply_text = '图片信息我也看不懂/:P-(/:P-(/:P-('
     elif isinstance(message, VideoMessage):
@@ -100,7 +100,6 @@ def index(request):
         if isinstance(message, MassSendJobFinishEvent):
             # logger.info('群发消息事件')
             reply_text = ''
-
 
     reply = create_reply(reply_text, message=message)
     return HttpResponse(reply, content_type="application/xml")
