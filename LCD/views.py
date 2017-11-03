@@ -73,7 +73,7 @@ def index(request):
 
     elif isinstance(message, VoiceMessage):
 
-        rgx = re.compile("\<\!\[CDATA\[(.*?)\]\]\>")
+        rgx = re.compile("<!\[CDATA\[(.*?)\]\]>")
         m = rgx.search(VoiceMessage.recognition)
         print m.group(1)
         reply_text = m.group(1)
