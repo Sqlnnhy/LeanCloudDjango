@@ -73,10 +73,9 @@ def index(request):
 
     elif isinstance(message, VoiceMessage):
 
-        rgx = re.compile("<!\[CDATA\[(.*?)\]\]>")
-        m = rgx.search(VoiceMessage.recognition)
-        print m.group(1)
-        reply_text = m.group(1)
+        # rgx = re.compile("<!\[CDATA\[(.*?)\]\]>")
+        # m = rgx.search(VoiceMessage.format)
+        reply_text = VoiceMessage.format
     elif isinstance(message, ImageMessage):
         reply_text = '图片信息我也看不懂/:P-(/:P-(/:P-('
     elif isinstance(message, VideoMessage):
