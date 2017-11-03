@@ -75,6 +75,7 @@ def index(request):
 
         rgx = re.compile("\<\!\[CDATA\[(.*?)\]\]\>")
         m = rgx.search(VoiceMessage.recognition)
+        print m.group(1)
         reply_text = m.group(1)
     elif isinstance(message, ImageMessage):
         reply_text = '图片信息我也看不懂/:P-(/:P-(/:P-('
