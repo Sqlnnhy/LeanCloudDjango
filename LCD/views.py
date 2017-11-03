@@ -72,6 +72,7 @@ def index(request):
         return HttpResponse(reply, content_type="application/xml")
 
     elif isinstance(message, VoiceMessage):
+
         rgx = re.compile("\<\!\[CDATA\[(.*?)\]\]\>")
         m = rgx.search(VoiceMessage.recognition)
         reply_text = m.group(1)
