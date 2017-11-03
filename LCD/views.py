@@ -1,4 +1,6 @@
 # -*- coding:utf-8 -*-
+import re
+
 import leancloud
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -70,8 +72,9 @@ def index(request):
         return HttpResponse(reply, content_type="application/xml")
 
     elif isinstance(message, VoiceMessage):
-
-        reply_text = VoiceMessage.recognition
+        rgx = re.compile("\<\!\[CDATA\[(.*?)\]\]\>")
+        m = rgx.search(VoiceMessage.recognition)
+        reply_text = m.group(1)
     elif isinstance(message, ImageMessage):
         reply_text = '图片信息我也看不懂/:P-(/:P-(/:P-('
     elif isinstance(message, VideoMessage):
