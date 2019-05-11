@@ -4,6 +4,8 @@ import re
 import leancloud
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.http import HttpRequest as request
+import RSAsign as rsasign
 
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
@@ -24,6 +26,56 @@ WECHAT_TOKEN = 'sayhello'
 AppID = 'wxad25526b9589c4c9'
 AppSecret = '27b5ffa5802f8664ff0c38eefe6983c5'
 
+def ping():
+    salt = ''
+    if request.method == 'POST':
+        salt = request.form.get('salt')
+    if request.method == 'GET':
+        salt = request.args.get('salt')
+
+    if salt == None or salt == '':
+        return 'error!'
+    else:
+        xmlContent = '<PingResponse><message></message><responseCode>OK</responseCode><salt>' + salt + '</salt></PingResponse>'
+        xmlSignature = rsasign.sign(xmlContent)
+        body = '<!-- ' + xmlSignature + ' -->\n' + xmlContent;
+        return body
+    return 'Ping!'
+
+def releaseTicket():
+    salt = ''
+    if request.method == 'POST':
+        salt = request.form.get('salt')
+    if request.method == 'GET':
+        salt = request.args.get('salt')
+
+    if salt == None or salt == '':
+        return 'error!'
+    else:
+        xmlContent = '<ReleaseTicketResponse><message></message><responseCode>OK</responseCode><salt>' + salt + '</salt></ReleaseTicketResponse>'
+        xmlSignature = rsasign.sign(xmlContent)
+        body = '<!-- ' + xmlSignature + ' -->\n' + xmlContent;
+        return body
+    return 'releaseTicket!'
+
+def obtainTicket():
+    salt=''
+    username = ''
+    if request.method == 'POST':
+        salt = request.form.get('salt')
+        username = request.form.get('userName')
+    if request.method == 'GET':
+        salt = request.args.get('salt')
+        username = request.args.get('userName')
+    prolongationPeriod = "607875500";
+    if salt ==None or salt =='' or username ==None or username =='':
+        return 'error!'
+    else:
+        xmlContent = '<ObtainTicketResponse><message></message><prolongationPeriod>' + prolongationPeriod + '</prolongationPeriod><responseCode>OK</responseCode><salt>' + salt + '</salt><ticketId>1</ticketId><ticketProperties>licensee=' + username + '\tlicenseType=0\t</ticketProperties></ObtainTicketResponse>'
+        xmlSignature = rsasign.sign(xmlContent)
+        body = '<!-- ' + xmlSignature + ' -->\n' + xmlContent;
+        return body
+    return 'obtainTicket!'
 
 def home(request):
     string = u"我在自强学堂学习Django，用它来建网站"
