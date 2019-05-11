@@ -4,7 +4,7 @@ import re
 import leancloud
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.http import HttpRequest as request
+# from django.http import HttpRequest as request
 import RSAsign as rsasign
 
 # Create your views here.
@@ -26,7 +26,7 @@ WECHAT_TOKEN = 'sayhello'
 AppID = 'wxad25526b9589c4c9'
 AppSecret = '27b5ffa5802f8664ff0c38eefe6983c5'
 
-def ping():
+def ping(request):
     salt = ''
     if request.method == 'POST':
         salt = request.form.get('salt')
@@ -42,7 +42,7 @@ def ping():
         return body
     return 'Ping!'
 
-def releaseTicket():
+def releaseTicket(request):
     salt = ''
     if request.method == 'POST':
         salt = request.form.get('salt')
@@ -58,7 +58,7 @@ def releaseTicket():
         return body
     return 'releaseTicket!'
 
-def obtainTicket():
+def obtainTicket(request):
     salt=''
     username = ''
     if request.method == 'POST':
@@ -81,7 +81,7 @@ def home(request):
     string = u"我在自强学堂学习Django，用它来建网站"
     return render(request, 'home.html', {'string': string})
 
-def index1():
+def index1(request):
     return 'Hello,This is a JetBrains License Server!'
 
 def show(request):
