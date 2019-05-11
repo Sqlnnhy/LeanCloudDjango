@@ -40,7 +40,7 @@ def ping(request):
         xmlSignature = rsasign.sign(xmlContent)
         body = '<!-- ' + xmlSignature + ' -->\n' + xmlContent;
         return body
-    return 'Ping!'
+    return render(request, 'home.html', {'string':'Ping!'})
 
 def releaseTicket(request):
     salt = ''
@@ -56,7 +56,7 @@ def releaseTicket(request):
         xmlSignature = rsasign.sign(xmlContent)
         body = '<!-- ' + xmlSignature + ' -->\n' + xmlContent;
         return body
-    return 'releaseTicket!'
+    return render(request, 'home.html', {'string':'releaseTicket!'})
 
 def obtainTicket(request):
     salt=''
@@ -75,14 +75,14 @@ def obtainTicket(request):
         xmlSignature = rsasign.sign(xmlContent)
         body = '<!-- ' + xmlSignature + ' -->\n' + xmlContent;
         return body
-    return 'obtainTicket!'
+    return render(request, 'home.html', {'string':'obtainTicket!'})
 
 def home(request):
     string = u"我在自强学堂学习Django，用它来建网站"
     return render(request, 'home.html', {'string': string})
 
 def index1(request):
-    return 'Hello,This is a JetBrains License Server!'
+    return render(request, 'home.html', {'string':'Hello,This is a JetBrains License Server!'})
 
 def show(request):
     try:
