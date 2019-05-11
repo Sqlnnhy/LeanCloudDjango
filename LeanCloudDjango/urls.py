@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^list', lcd_view.show),
     url(r'^home', lcd_view.home),
     url(r'^index', lcd_view.index),
-    url(r'^/', lcd_view.index1),
+    url(r'^index1', lcd_view.index1),
     url(r'^rpc/ping.action', lcd_view.ping),
     url(r'^rpc/releaseTicket.action', lcd_view.releaseTicket),
     url(r'^rpc/obtainTicket.action', lcd_view.obtainTicket),
