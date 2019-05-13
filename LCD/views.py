@@ -31,7 +31,7 @@ def ping(request):
     if request.method == 'POST':
         salt = request.form.get('salt')
     if request.method == 'GET':
-        salt = request.GET["salt"]
+        salt = request.GET['salt']
 
     if salt == None or salt == '':
         return 'error!'
