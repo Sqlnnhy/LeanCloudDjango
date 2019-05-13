@@ -31,7 +31,7 @@ def ping(request):
     if request.method == 'POST':
         salt = request.form.get('salt')
     if request.method == 'GET':
-        salt = request.args.get('salt')
+        salt = request.GET['salt']
 
     if salt == None or salt == '':
         return 'error!'
@@ -47,7 +47,7 @@ def releaseTicket(request):
     if request.method == 'POST':
         salt = request.form.get('salt')
     if request.method == 'GET':
-        salt = request.args.get('salt')
+        salt = request.GET['salt']
 
     if salt == None or salt == '':
         return 'error!'
@@ -65,7 +65,7 @@ def obtainTicket(request):
         salt = request.form.get('salt')
         username = request.form.get('userName')
     if request.method == 'GET':
-        salt = request.args.get('salt')
+        salt = request.GET['salt']
         username = request.args.get('userName')
     prolongationPeriod = "607875500";
     if salt ==None or salt =='' or username ==None or username =='':
