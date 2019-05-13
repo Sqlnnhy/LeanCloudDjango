@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^rpc/ping.action', lcd_view.ping),
     url(r'^rpc/releaseTicket.action', lcd_view.releaseTicket),
     url(r'^rpc/obtainTicket.action', lcd_view.obtainTicket),
-    url(r'^/', lcd_view.index1),
+    url(r'^', lcd_view.index1),
     # url(r'^grappelli/', include('grappelli.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
