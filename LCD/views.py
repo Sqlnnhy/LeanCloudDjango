@@ -5,7 +5,7 @@ import leancloud
 from django.http import HttpResponse
 from django.shortcuts import render
 # from django.http import HttpRequest as request
-import RSAsign as rsasign
+import LCD.RSAsign as rsasign
 
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
@@ -18,6 +18,7 @@ from wechatpy.messages import TextMessage, VoiceMessage, ImageMessage, VideoMess
 from wechatpy.events import BaseEvent
 from wechatpy.utils import check_signature
 
+from LCD.froms import NameForm, SaltForm
 from LCD.models import Todo
 
 TRASHED, PLANNED, COMPLETED = -1, 0, 1
@@ -26,63 +27,74 @@ WECHAT_TOKEN = 'sayhello'
 AppID = 'wxad25526b9589c4c9'
 AppSecret = '27b5ffa5802f8664ff0c38eefe6983c5'
 
+
 def ping(request):
     salt = ''
     if request.method == 'POST':
-        salt = request.form.get('salt')
+        sf = SaltForm(request.POST)
+        if sf.is_valid():
+            salt = sf.cleaned_data['salt']
     if request.method == 'GET':
         salt = request.GET['salt']
-
-    if salt == None or salt == '':
-        return 'error!'
+    if salt is None or salt == '':
+        return render(request, 'body.html', {'string': 'error!'})
     else:
         xmlContent = '<PingResponse><message></message><responseCode>OK</responseCode><salt>' + salt + '</salt></PingResponse>'
         xmlSignature = rsasign.sign(xmlContent)
-        body = '<!-- ' + xmlSignature + ' -->\n' + xmlContent;
-        return body
-    return render(request, 'home.html', {'string':'Ping!'})
+        body = '<!-- ' + xmlSignature + ' -->\n' + xmlContent
+        return render(request, 'body.html', {'string': body})
+    return render(request, 'body.html', {'string': 'Ping!'})
+
 
 def releaseTicket(request):
     salt = ''
     if request.method == 'POST':
-        salt = request.form.get('salt')
+        sf = SaltForm(request.POST)
+        if sf.is_valid():
+            salt = sf.cleaned_data['salt']
     if request.method == 'GET':
         salt = request.GET['salt']
 
-    if salt == None or salt == '':
-        return 'error!'
+    if salt is None or salt == '':
+        return render(request, 'body.html', {'string': 'error!'})
     else:
         xmlContent = '<ReleaseTicketResponse><message></message><responseCode>OK</responseCode><salt>' + salt + '</salt></ReleaseTicketResponse>'
         xmlSignature = rsasign.sign(xmlContent)
-        body = '<!-- ' + xmlSignature + ' -->\n' + xmlContent;
-        return body
-    return render(request, 'home.html', {'string':'releaseTicket!'})
+        body = '<!-- ' + xmlSignature + ' -->\n' + xmlContent
+        return render(request, 'body.html', {'string': body})
+    return render(request, 'body.html', {'string': 'releaseTicket!'})
+
 
 def obtainTicket(request):
-    salt=''
+    salt = ''
     username = ''
     if request.method == 'POST':
-        salt = request.form.get('salt')
-        username = request.form.get('userName')
+        nf = NameForm(request.POST)
+        if nf.is_valid():
+            salt = nf.cleaned_data['salt']
+            username = nf.cleaned_data['userName']
     if request.method == 'GET':
         salt = request.GET['salt']
-        username = request.args.get('userName')
-    prolongationPeriod = "607875500";
-    if salt ==None or salt =='' or username ==None or username =='':
-        return 'error!'
+        username = request.GET('userName')
+    prolongationPeriod = "607875500"
+    if salt is None or salt == '' or username is None or username == '':
+        return render(request, 'body.html', {'string': 'error!'})
     else:
         xmlContent = '<ObtainTicketResponse><message></message><prolongationPeriod>' + prolongationPeriod + '</prolongationPeriod><responseCode>OK</responseCode><salt>' + salt + '</salt><ticketId>1</ticketId><ticketProperties>licensee=' + username + '\tlicenseType=0\t</ticketProperties></ObtainTicketResponse>'
         xmlSignature = rsasign.sign(xmlContent)
-        body = '<!-- ' + xmlSignature + ' -->\n' + xmlContent;
-        return body
-    return render(request, 'home.html', {'string':'obtainTicket!'})
+        body = '<!-- ' + xmlSignature + ' -->\n' + xmlContent
+        return render(request, 'body.html', {'string': body})
+    return render(request, 'body.html', {'string': 'obtainTicket!'})
+
 
 def home(request):
     string = u"我在自强学堂学习Django，用它来建网站"
     return render(request, 'home.html', {'string': string})
 
+
 def index1(request):
-    return render(request, 'home.html', {'string':'Hello,This is a JetBrains License Server!'})
+    return render(request, 'home.html', {'string': 'Hello,This is a JetBrains License Server!'})
+
 
 def show(request):
     try:

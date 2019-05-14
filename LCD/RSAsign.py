@@ -23,22 +23,25 @@ qQIhAKp2v5e8AMj9ROFO5B6m4SsVrIkwFICw17c0WzDRxTEBAiAYDmftk990GLcF
 O98RPCU0nJg=
 -----END PRIVATE KEY-----"""
 
+
 def sign(signdata):
-    if sys.version_info >=(3, 0):
-        signature= py3sign(signdata)
-    elif sys.version_info >=(2, 7):
+    if sys.version_info >= (3, 0):
+        signature = py3sign(signdata)
+    elif sys.version_info >= (2, 7):
         signature = py2sign(signdata)
     else:
         raise RuntimeError('At least Python 2.7 is required')
     return signature
 
+
 def py2sign(signdata):
-    if type(signdata) == unicode:
+    if type(signdata) == 'unicode':
         signdata = signdata.encode("ascii")
     privkey = rsa.PrivateKey.load_pkcs1(ASNKEY)
     signature = rsa.sign(str.encode(signdata), privkey, 'MD5')
     signature = str_to_hex(signature)
     return signature
+
 
 def py3sign(signdata):
     privkey = rsa.PrivateKey.load_pkcs1(ASNKEY)
@@ -46,18 +49,22 @@ def py3sign(signdata):
     signature = ByteToHex(signature)
     return signature
 
+
 def ByteToHex(bins):
-    return ''.join( [ "%02x" % x for x in bins ] ).strip()
+    return ''.join(["%02x" % x for x in bins]).strip()
+
 
 def HexToByte(hexStr):
     return bytes.fromhex(hexStr)
 
+
 def str_to_hex(s):
     return "".join("{:02x}".format(ord(c)) for c in s)
+
 
 def hex_to_str(s):
     return ''.join([chr(i) for i in [int(b, 16) for b in s.split(' ')]])
 
-#header = "<!-- 537606aed546c5ba42c0820ad7fd0d74ee7caf90c232a484d0464b3332c42a9189555aebdba3570fe6566842ba7b7bb88da360f202ae9536a2a12fcdf39600c7 --><ObtainTicketResponse><message></message><prolongationPeriod>607875500</prolongationPeriod><responseCode>OK</responseCode><salt>1508484258274</salt><ticketId>1</ticketId><ticketProperties>licensee=Administrator    licenseType=0   </ticketProperties></ObtainTicketResponse>";
-#content = "<ObtainTicketResponse><message></message><prolongationPeriod>607875500</prolongationPeriod><responseCode>OK</responseCode><salt>1508484258274</salt><ticketId>1</ticketId><ticketProperties>licensee=Administrator\tlicenseType=0\t</ticketProperties></ObtainTicketResponse>"
-#print(sign(content))
+# header = "<!-- 537606aed546c5ba42c0820ad7fd0d74ee7caf90c232a484d0464b3332c42a9189555aebdba3570fe6566842ba7b7bb88da360f202ae9536a2a12fcdf39600c7 --><ObtainTicketResponse><message></message><prolongationPeriod>607875500</prolongationPeriod><responseCode>OK</responseCode><salt>1508484258274</salt><ticketId>1</ticketId><ticketProperties>licensee=Administrator    licenseType=0   </ticketProperties></ObtainTicketResponse>";
+# content = "<ObtainTicketResponse><message></message><prolongationPeriod>607875500</prolongationPeriod><responseCode>OK</responseCode><salt>1508484258274</salt><ticketId>1</ticketId><ticketProperties>licensee=Administrator\tlicenseType=0\t</ticketProperties></ObtainTicketResponse>"
+# print(sign(content))
