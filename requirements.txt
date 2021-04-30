@@ -3,5 +3,5 @@ Django==1.8.17
 django-contrib-comments==1.8.0
 gevent==1.2.2
 leancloud-sdk==1.12.0
-rsa==3.4.2
+rsa==4.7
 cryptography
