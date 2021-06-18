@@ -1,0 +1,13 @@
+{
+    "builds": [{
+        "src": "LeanCloudDjango/wsgi.py",
+        "use": "@LeanCloudDjango",
+        "config": { "maxLambdaSize": "15mb" }
+    }],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "LeanCloudDjango/wsgi.py"
+        }
+    ]
+}
