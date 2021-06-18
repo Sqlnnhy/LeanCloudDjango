@@ -1,7 +1,7 @@
 {
     "version": 2,
     "public": false,
-    "builds": [{ "src": "LeanCloudDjango/wsgi.py", "use": "@Sqlnnhy/LeanCloudDjango" }],
+    "builds": [{ "src": "LeanCloudDjango/wsgi.py", "use": "@Sqlnnhy/LeanCloudDjango/LeanCloudDjango/wsgi.py" }],
     "routes": [
         { "src": "/", "dest": "/" }
     ]
