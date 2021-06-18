@@ -1,7 +1,7 @@
 {
     "version": 2,
     "public": false,
-    "builds": [{ "src": "LCD/views.py", "use": "@vercel/python" }],
+    "builds": [{ "src": "LeanCloudDjango/wsgi.py", "use": "@hhh/python" }],
     "routes": [
         { "src": "/home", "dest": "LCD/views.py" }
     ]
